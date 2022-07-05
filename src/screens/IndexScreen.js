@@ -14,11 +14,10 @@ const IndexScreen = ({ navigation }) => { // props navigation dan geliyor
     //        de rerender olur. Yani en tepede Context olduğu için ona bağlı tüm 
     //       componentler değişmiş veri ile güncellenir.
 
-    const { state, addBlogPost, deleteBlogPost } = useContext(Context); //Context.Provider içerisinde value kısmımna erişim
+    const { state, deleteBlogPost } = useContext(Context); //Context.Provider içerisinde value kısmımna erişim
 
     return (<View>
 
-        <Button title="Add Post" onPress={() => addBlogPost()} />
         <FlatList
             data={state}
             keyExtractor={blogPost => blogPost.title}
@@ -37,6 +36,16 @@ const IndexScreen = ({ navigation }) => { // props navigation dan geliyor
         />
     </View >
     );
+};
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+                <Feather name="plus" size={30} />
+            </TouchableOpacity>
+        ),
+    };
 };
 
 
