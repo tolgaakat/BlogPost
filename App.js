@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Provider } from "./src/context/BlogContext";
+import ShowScreen from "./src/screens/ShowScreen";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import IndexScreen from "./src/screens/IndexScreen";
+
+const navigator = createStackNavigator({
+  Index: IndexScreen,
+  Show: ShowScreen
+},
+  {
+    initialRouteName: 'Index',
+    defaultNavigationOptions: {
+      title: 'Blogs'
+    }
+  });
+
+
+const App = createAppContainer(navigator);
+
+
+/* 
+"App" "Provider" altına konulduğunda Context verisine erişebiliyor. Tabii tüm 
+alt componentler de erişebilir 
+*/
+
+export default () => {
+  return <Provider>
+    <App />
+  </Provider>;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
